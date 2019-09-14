@@ -14,18 +14,34 @@
 </head>
 
 <body>
-    <h1>Add Patient</h1>
+    <h1>~Patient ID~</h1>
     <br>
+
     <form>
-        <div class="form-group">
-            <label>Patient ID</label>
-            <input type='text' class="form-control" id="pid"></input>
-        </div>
         <div class="form-group">
             <label>Patient Location</label>
             <input type='text' class="form-control" id="ploc"></input>
         </div>
+        <label>Triage</label><br>
+        <div class="btn-group" data-toggle="buttons">
+            <label class="btn btn-success">
+                <input type="radio" name="options" id="G"> Green
+            </label>
+            <label class="btn btn-warning">
+                <input type="radio" name="options" id="Y"> Yellow
+            </label>
+            <label class="btn btn-danger">
+                <input type="radio" name="options" id="R"> Red
+            </label>
+            <label class="btn btn-dark">
+                <input type="radio" name="options" id="B"> Black
+            </label>
+        </div>
         <div class="form-group">
+            <label>Patient Conditions</label>
+            <textarea class="form-control" id="pcond" rows="3"></textarea>
+        </div>
+        <!-- <div class="form-group">
             <label>Respondant Assignment</label>
             <select class="form-control" id="prespondant">
                 <option>1</option>
@@ -34,7 +50,8 @@
                 <option>4</option>
                 <option>5</option>
             </select>
-        </div>
+        </div> -->
+        <br><br>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 
