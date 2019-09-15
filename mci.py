@@ -82,3 +82,9 @@ class MCI:
     def addResponders(self, responderIDs):
         for rid in responderIDs:
             self.addResponder(rid)
+
+    def getNumPatients(self):
+        return len(self.patientDict)
+
+    def getNumResponder(self):
+        return len(self.responders)
