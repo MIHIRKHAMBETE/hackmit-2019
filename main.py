@@ -15,17 +15,37 @@
 # [START gae_flex_quickstart]
 import logging
 
-from flask import Flask
-
+from flask import Flask, request
 
 app = Flask(__name__)
 
+db = dict()
+db['odometer'] = None
+db['fuel_level'] = None
+db['longitude'] = None
+db['latitude'] = None
 
 @app.route('/')
 def hello():
     """Return a friendly HTTP greeting."""
     return 'Hello World!'
 
+@app.route('/data', methods=['GET', 'POST'])
+def data():
+    if request.method == 'GET': # for use by frontend
+        param = str(request.args.get('param', '')) #args: key, default
+        return str(db.get(param, 'error'))
+
+    elif request.method == 'POST': # for inputting incoming data to db
+        req_data = request.get_json()
+        name = str(req_data['name'])
+        value = req_data['value']
+
+        if name in db:
+            db[name] = value
+            return name + ' value set to ' + str(value)
+        else:
+            return 'unable to insert value'
 
 @app.errorhandler(500)
 def server_error(e):
