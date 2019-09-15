@@ -18,7 +18,7 @@ def get_ibm_weather_at(latitude, longitude):
     location_url = url_beginning + str(latitude) + url_bridge + str(longitude) + url_end
     
     
-    #get the location's weather as a json object
+    #get the location's ibm weather as a json object
     r = requests.get(url = location_url, params = {}) 
     data = r.json()
     return data

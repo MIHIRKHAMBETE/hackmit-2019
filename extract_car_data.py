@@ -57,7 +57,7 @@ def get_car_data():
                 continue
             #r = requests.post(url = API_ENDPOINT, data = post_data)
             while(time.time() - execution_start_time > line_relative_time):
-                # wait until the time the data is supposed to be sent
+                # wait until the time the Data is supposed to be sent
                 time.sleep(0.0001)
             #POST to suzie's URL
     return (fuel_data, latitude_data, longitude_data, odometer_data)
