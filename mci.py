@@ -12,7 +12,7 @@ class Patient:
         self.responder = None
         self.cleared = False
 
-    def reassign(self, respondent):
+    def reassign(self, responder): # just the id, not the object
         self.responder = responder
 
     def changeStatus(self, status):
@@ -37,7 +37,7 @@ class MCI:
         self.commander = commander
         self.patientDict = {}
         self.patientDone = []
-        self.responders = responders
+        self.responders = responders # dict, id = self.id
         self.incidence = True
 
     def addPatient(self, location, triage, condition='unknown', need='n/a'):
@@ -77,7 +77,7 @@ class MCI:
             self.incidence = False
 
     def addResponder(self, responderID):
-        self.responders.append(Responder(responderID))
+        self.responders[responderID]= Responder(responderID)
 
     def addResponders(self, responderIDs):
         for rid in responderIDs:

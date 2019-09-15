@@ -6,19 +6,19 @@
     <div class="card-deck">
         <div class='card-group'>
             {% for patient in patients %}
-            <div class="card {{'text-white bg-danger' if patient.status=='R'}} {{'bg-warning' if patient.status=='Y'}} {{'bg-success' if patient.status=='G'}} {{'text-white bg-dark' if patient.status=='B'}}" name="{{ patient.id }}">
+            <div class="card {{'text-white bg-danger' if patient.status=='R'}} {{'bg-warning' if patient.status=='Y'}} {{'bg-success' if patient.status=='G'}} {{'text-white bg-dark' if patient.status=='B'}}">
                 <div class='card-header'>
                     Patient ID: {{ patient.id }}
                 </div>
                 <div class="card-body">
                     <h5 class='card-title'>Location: {{ patient.location }}</h5>
                     <p class="card-text">Condition: {{ patient.condition }}</p>
-                    <label>Assigned to: </label>
+                    <label>Assigned to: {{patient.responder if patient.responder}}</label>
                     <form class='form-row' method="post">
                         <div class='col-auto'>
-                            <select id="passignee" name="passignee" class="form-control mr-sm-2">
+                            <select name="passignee" class="form-control mr-sm-2">
                                 {% for responder in responders %}
-                                <option value="{{ responder.id }}">{{ responder.id }}</option>
+                                <option value="{{ patient.id }}~{{ responder.id }}">{{ responder.id }}</option>
                                 {% endfor %}
                             </select>
                         </div>

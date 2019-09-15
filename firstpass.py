@@ -18,7 +18,7 @@ def index():
         # Report Incident button pressed: initialize new mci!
         global this_mci
 
-        this_mci = mci.MCI(dt.datetime.now(), "location",  "commander", [])
+        this_mci = mci.MCI(dt.datetime.now(), "location",  "commander", {})
         # for testing purposes, add more responders & patients
         this_mci.addResponders(['MIT8', 'P1', 'Squad2'])
         this_mci.addPatient('left side of lobby', 'R', 'Hemorrhage (tourniquet placed)')
@@ -26,18 +26,21 @@ def index():
         this_mci.addPatient('sidewalk next to bldg, leaning on pole', 'G')
         this_mci.addPatient('red couch by elevator', 'G')
         this_mci.addPatient('behind lobby staff counter', 'B', 'cardiac arrest')
+        # for pt in this_mci.patientDict.keys():
+        #     this_mci.patientDict[pt].reassign('P1')
         return redirect(url_for("commander"))
 
 
 @app.route('/commander', methods=['GET', 'POST'])
 def commander():
     if request.method == "POST":
-        print(request.form)
-        # respIDs = []
-        # for responder in this_mci.responders:
-        #     respIDs.append(responder.id)
+        global this_mci
+        result = request.form["passignee"]
+        pt, responder = result.split('~') #assumeing no responder id's will have ~ in their call sign
+        this_mci.patientDict[int(pt)].reassign(responder)
+        this_mci.responders[responder].reassign(pt)
 
-    return render_template('commander.html', responders=this_mci.responders, patients=this_mci.patientDict.values())
+    return render_template('commander.html', responders=this_mci.responders.values(), patients=this_mci.patientDict.values())
 
 @app.route('/triage', methods=['GET', 'POST'])
 def triager():
