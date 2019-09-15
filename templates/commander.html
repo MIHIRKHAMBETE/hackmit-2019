@@ -8,17 +8,23 @@
             {% for patient in patients %}
             <div class="card {{'text-white bg-danger' if patient.status=='R'}} {{'bg-warning' if patient.status=='Y'}} {{'bg-success' if patient.status=='G'}} {{'text-white bg-dark' if patient.status=='B'}}">
                 <div class='card-header'>
-                    Patient ID: {{ patient.id }}
+                    <b>Patient ID</b>: {{ patient.id }}
                 </div>
                 <div class="card-body">
-                    <h5 class='card-title'>Location: {{ patient.location }}</h5>
-                    <p class="card-text">Condition: {{ patient.condition }}</p>
-                    <label>Assigned to: {{patient.responder if patient.responder}}</label>
+                    <h5 class='card-title'><b>Location</b>: {{ patient.location }}</h5>
+                    <p class="card-text"><b>Condition</b>: {{ patient.condition }}</p>
+                </div>
+                <div class="card-footer">
+                    <!-- <label>Assigned: {{patient.responder if patient.responder}}</label> -->
                     <form class='form-row' method="post">
+                        <label>Assignee: </label>
                         <div class='col-auto'>
                             <select name="passignee" class="form-control mr-sm-2">
+                                <option value="{{ patient.id }}~{{ patient.responder }}" selected>{{ patient.responder }}</option>
                                 {% for responder in responders %}
-                                <option value="{{ patient.id }}~{{ responder.id }}">{{ responder.id }}</option>
+                                    {% if patient.responder != responder.id %}
+                                        <option value="{{ patient.id }}~{{ responder.id }}">{{ responder.id }}</option>
+                                    {% endif %}
                                 {% endfor %}
                             </select>
                         </div>

@@ -6,25 +6,21 @@
         <div class='card-group'>
             <div class="card {{'text-white bg-danger' if patient.status=='R'}} {{'bg-warning' if patient.status=='Y'}} {{'bg-success' if patient.status=='G'}} {{'text-white bg-dark' if patient.status=='B'}}">
                 <div class='card-header'>
-                    Patient ID: {{ patient.id }}
+                    <b></b>Patient ID: {{ patient.id }}
                 </div>
                 <div class="card-body">
-                    <h1 class='card-title'>Location: {{ patient.location }}</h1>
-                    <h3 class="card-text">Condition: {{ patient.condition }}</h3>
+                    <h5 class='card-title'>Location: {{ patient.location }}</h5>
+                    <p class="card-text">Condition: {{ patient.condition }}</p>
                 </div>
             </div>
         </div>
     </div>
 
     <form class='form-inline' method="post">
-        <!-- <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id="pcleared">
-            <label class="form-check-label">Patient Cleared</label>
-        </div> -->
-        <div class="btn-row">
-          <button type="submit" class='btn btn-primary btn-block' name="refusal" value="{{ responder.id }}">Patient Refusal Processed </button>
-          <button type="submit" class='btn btn-primary btn-block' name="transport" value="{{ responder.id }}">Initiating Patient Transport</button>
-          <button type="submit" class='btn btn-primary btn-block' name="transfer" value="{{ responder.id }}">Patient Transferred to Other Care</button>
+        <div class="btn-group" role="group">
+          <button type="submit" class='btn btn-primary btn-block' name="refusal" value="{{ responder.id }}">Refusal </button>
+          <button type="submit" class='btn btn-primary btn-block' name="transport" value="{{ responder.id }}">Transport</button>
+          <button type="submit" class='btn btn-primary btn-block' name="transfer" value="{{ responder.id }}">Transferred</button>
         </div>
     </form>
     <br>

@@ -8,7 +8,7 @@ app = Flask(__name__)
 middle_url = "http://triageapp.appspot.com/data"
 # assume for now there is only one mci to track
 # this_mci = mci.MCI(dt.datetime.now(), "location",  "commander", [mci.Responder('MIT8')])
-mcis = [mci.MCI(dt.datetime.now(), "location",  "commander", {})] # test only
+mcis = [mci.MCI(dt.datetime.now(), "Apollo Theater",  "Commander", {})] # test only
 this_mci = None
 
 
@@ -20,7 +20,7 @@ def index():
         # Report Incident button pressed: initialize new mci!
         global this_mci
 
-        this_mci = mci.MCI(dt.datetime.now(), "nyc",  "commander", {})
+        this_mci = mci.MCI(dt.datetime.now(), "Apollo Theather",  "Commander", {})
         # for testing purposes, add more responders & patients
         this_mci.addResponders(['MIT8', 'P1', 'Squad2'])
         this_mci.addPatient('left side of lobby', 'R', 'Hemorrhage (tourniquet placed)')

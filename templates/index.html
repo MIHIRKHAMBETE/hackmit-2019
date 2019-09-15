@@ -7,11 +7,13 @@
             {% for mci in mcis %}
             <div class="card ">
                 <div class='card-header'>
-                    {{ mci.datetime }} // {{ mci.location }}
+                    {{ mci.datetime.strftime('%Y-%m-%d %H:%M') }} // {{ mci.location }}
                 </div>
                 <div class="card-body">
-                    <h5 class='card-title'>Patients: x // Responders: y</h5>
-                    Select a role:
+                    <h5 class='card-title'>Patients: x</h5>
+                    <h5 class='card-title'> Responders: y</h5>
+                    
+                    <label>Select a role</label><br>
                     <button type="submit" class="btn btn-primary mb-2" name="ic" value="{{ mci.id }}">Incident Commander</button>
                     <button type="submit" class="btn btn-primary mb-2" name="triage" value="{{ mci.id }}">Triage</button>
                     <button type="submit" class="btn btn-primary mb-2" name="responders" value="{{ mci.id }}">First Responder</button>
@@ -22,8 +24,10 @@
         </div>
     </div>
 
-    <form method="post">
-        <h3>By reporting an incident, you are declaring yourself Incident Commander.</h3>
-        <button type="submit" class="btn btn-primary">Report New Incident</button>
+    <br>
+
+    <form method="post" class="text-center">
+        <button type="submit" class="btn btn-primary btn-lg">Report New Incident</button>
+        <p>By reporting an incident, you declare yourself Incident Commander.</p>
     </form>
 {% endblock %}
