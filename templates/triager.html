@@ -1,34 +1,19 @@
 {% extends "layout.html" %}
 {% block content %}
     <h1>Triager View</h1>
+    <br>
+    <div class="card-deck">
+        <div class='card-group'>
+            {% for patient in patients %}
+            <div class="card {{'text-white bg-danger' if patient.status=='R'}} {{'bg-warning' if patient.status=='Y'}} {{'bg-success' if patient.status=='G'}} {{'text-white bg-dark' if patient.status=='B'}}">
+                <div class='card-header'>
+                    <b> Location: {{ patient.location }} </b> // ID: {{ patient.id }} // Condition: {{ patient.condition }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
 
-    <table>
-        <tr>
-            <th>Status</th>
-            <th>Patient</th>
-            <th>Location</th>
-        </tr>
-        <tr>
-            <td>High</td>
-            <td>~Patient</td>
-            <td>~Assignee</td>
-        </tr>
-        <tr>
-            <td>Medium</td>
-            <td>~Patient</td>
-            <td>~Assignee</td>
-        </tr>
-        <tr>
-            <td>Low</td>
-            <td>~Patient</td>
-            <td>~Assignee</td>
-        </tr>
-        <tr>
-            <td>Black</td>
-            <td>~Patient</td>
-            <td>~Assignee</td>
-        </tr>
-    </table>
 
     <a href='/patientadd'><button type="button" class="btn btn-primary">Add Patient</button></a>
 

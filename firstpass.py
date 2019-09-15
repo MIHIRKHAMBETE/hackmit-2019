@@ -43,11 +43,13 @@ def commander():
     return render_template('commander.html', responders=this_mci.responders.values(), patients=this_mci.patientDict.values())
 
 @app.route('/triage', methods=['GET', 'POST'])
-def triager():
+def triage():
     if request.method == "GET":
-        return render_template('triager.html')
+        return render_template('triager.html', patients=this_mci.patientDict.values())
     elif request.method == "POST":
-        return render_template('triager.html')
+        #press the add patient button!
+        return redirect(url_for("patientadd"))
+        # return render_template('triager.html', patients=this_mci.patientDict.values())
 
 
 @app.route('/patientadd', methods=['GET', 'POST'])
@@ -55,7 +57,7 @@ def patientadd():
     if request.method == "GET":
         return render_template('patientadd.html')
     elif request.method == "POST":
-        return request.form
+        return redirect(url_for("triage"))
 
 @app.route('/responder', methods=['GET', 'POST'])
 def responder():
