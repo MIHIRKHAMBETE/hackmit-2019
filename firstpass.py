@@ -19,8 +19,14 @@ def triager():
 
 @app.route('/patientadd')
 def patientadd():
+    pid = 5551
     return render_template('patientadd.html')
+
 
 @app.route('/responder')
 def responder():
-    return render_template('responder.html')
+    pid = 6123
+    loc = 'corner'
+    pstatus = 'R'
+    pcond = None
+    return render_template('responder.html', pid=pid, loc=loc, pstatus=pstatus, pcond=pcond)
