@@ -9,9 +9,11 @@ app = Flask(__name__)
 middle_url = "http://triageapp.appspot.com/data"
 # assume for now there is only one mci to track
 # this_mci = mci.MCI(dt.datetime.now(), "location",  "commander", [mci.Responder('MIT8')])
-mcis = [mci.MCI(dt.datetime.now()-timedelta(hours=30), 1, "Back Bay, Boston",  "commander", {})] # test only
+
+mcis = [mci.MCI(1, dt.datetime.now()-timedelta(hours=30),  "Apollo Theater",  "commander", {})] # test only
 # mcis = []
-this_mci = mci.MCI(dt.datetime.now(), 2, "nyc",  "commander", {})
+# this_mci = mci.MCI(dt.datetime.now(), 2, "Apollo Theater",  "Commander", {})
+this_mci = None
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -20,9 +22,8 @@ def index():
         return render_template('index.html', mcis=mcis)
     elif request.method == "POST":
         # Report Incident button pressed: initialize new mci!
-
-
-        # this_mci = mci.MCI(dt.datetime.now(), "nyc",  "commander", {})
+        global this_mci
+        this_mci = mci.MCI(len(mcis), dt.datetime.now(), "Apollo Theather",  "Commander", {})
         # for testing purposes, add more responders & patients
         # this_mci.addResponders(['MIT8', 'P1', 'Squad2'])
         # this_mci.addPatient('left side of lobby', 'R', 'Hemorrhage (tourniquet placed)')
@@ -42,8 +43,8 @@ def index():
 
         report = request.form.get("report")
         if report:
-            global this_mci
-            this_mci = mci.MCI(dt.datetime.now(), len(mcis) "Bronx, NYC",  "commander", {})
+
+            this_mci = mci.MCI(len(mcis), dt.datetime.now(), "Bronx, NYC",  "commander", {})
             mcis.append(this_mci)
             return redirect(url_for("commander"))
 

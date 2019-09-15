@@ -31,7 +31,8 @@ class Responder:
 
 class MCI:
 
-    def __init__(self, datetime, location, commander, responders):
+    def __init__(self, id, datetime, location, commander, responders):
+        self.id = id
         self.datetime = datetime
         self.location = location
         self.commander = commander

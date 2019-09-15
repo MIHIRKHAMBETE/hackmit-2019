@@ -7,16 +7,18 @@
             {% for mci in mcis %}
             <div class="card ">
                 <div class='card-header'>
-                    {{ mci.datetime }} // {{ mci.location }}
+                    {{ mci.datetime.strftime('%Y-%m-%d %H:%M') }} // {{ mci.location }}
                 </div>
                 <form method="post">
                 <div class="card-body">
-                    <h5 class='card-title'>Patients: 0 // Responders: 0</h5>
-                    Select a role:
-                    <button type="submit" class="btn btn-primary mb-2" name="ic" value="{{ mci.datetime }}">Incident Commander</button>
-                    <button type="submit" class="btn btn-primary mb-2" name="triage" value="{{ mci.datetime }}">Triage</button>
-                    <button type="submit" class="btn btn-primary mb-2" name="responder" value="{{ mci.datetime }}">First Responder</button>
-                    <button type="submit" class="btn btn-primary mb-2" name="dispatch" value="{{ mci.datetime }}">Dispatch</button>
+                    <h5 class='card-title'>Patients: 0</h5>
+                    <h5 class='card-title'> Responders: 1</h5>
+
+                    <label>Select a role</label><br>
+                    <button type="submit" class="btn btn-primary mb-2" name="ic" value="{{ mci.id }}">Incident Commander</button>
+                    <button type="submit" class="btn btn-primary mb-2" name="triage" value="{{ mci.id }}">Triage</button>
+                    <button type="submit" class="btn btn-primary mb-2" name="responders" value="{{ mci.id }}">First Responder</button>
+                    <button type="submit" class="btn btn-primary mb-2" name="dispatch" value="{{ mci.id }}">Dispatch</button>
                 </div>
                 </form>
             </div>
@@ -24,8 +26,10 @@
         </div>
     </div>
 
-    <form method="post">
-        <h3>By reporting an incident, you are declaring yourself Incident Commander.</h3>
-        <button type="submit" name="report" value="report" class="btn btn-primary">Report New Incident</button>
+    <br>
+
+    <form method="post" class="text-center">
+        <button type="submit" class="btn btn-primary btn-lg">Report New Incident</button>
+        <p>By reporting an incident, you declare yourself Incident Commander.</p>
     </form>
 {% endblock %}
