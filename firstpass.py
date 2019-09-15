@@ -1,5 +1,6 @@
 import requests
 import datetime as dt
+from datetime import timedelta
 from flask import Flask, render_template, request, url_for, redirect
 
 import mci
@@ -8,8 +9,9 @@ app = Flask(__name__)
 middle_url = "http://triageapp.appspot.com/data"
 # assume for now there is only one mci to track
 # this_mci = mci.MCI(dt.datetime.now(), "location",  "commander", [mci.Responder('MIT8')])
-mcis = [mci.MCI(dt.datetime.now(), "nyc",  "commander", {})] # test only
-this_mci = None
+mcis = [mci.MCI(dt.datetime.now()-timedelta(hours=30), 1, "Back Bay, Boston",  "commander", {})] # test only
+# mcis = []
+this_mci = mci.MCI(dt.datetime.now(), 2, "nyc",  "commander", {})
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -18,19 +20,16 @@ def index():
         return render_template('index.html', mcis=mcis)
     elif request.method == "POST":
         # Report Incident button pressed: initialize new mci!
-        global this_mci
 
-        this_mci = mci.MCI(dt.datetime.now(), "nyc",  "commander", {})
+
+        # this_mci = mci.MCI(dt.datetime.now(), "nyc",  "commander", {})
         # for testing purposes, add more responders & patients
-        this_mci.addResponders(['MIT8', 'P1', 'Squad2'])
-        this_mci.addPatient('left side of lobby', 'R', 'Hemorrhage (tourniquet placed)')
-        this_mci.addPatient('stairwell to right of lobby', 'Y')
-        this_mci.addPatient('sidewalk next to bldg, leaning on pole', 'G')
-        this_mci.addPatient('red couch by elevator', 'G')
-        this_mci.addPatient('behind lobby staff counter', 'B', 'cardiac arrest')
-        # for pt in this_mci.patientDict.keys():
-        #     this_mci.patientDict[pt].reassign('P1')
-        # return redirect(url_for("commander"))
+        # this_mci.addResponders(['MIT8', 'P1', 'Squad2'])
+        # this_mci.addPatient('left side of lobby', 'R', 'Hemorrhage (tourniquet placed)')
+        # this_mci.addPatient('stairwell to right of lobby', 'Y')
+        # this_mci.addPatient('sidewalk next to bldg, leaning on pole', 'G')
+        # this_mci.addPatient('red couch by elevator', 'G')
+        # this_mci.addPatient('behind lobby staff counter', 'B', 'cardiac arrest')
 
         ic = request.form.get("ic")
         if ic: return redirect(url_for("commander"))
@@ -42,7 +41,13 @@ def index():
         if dispatch: return redirect(url_for("dispatch"))
 
         report = request.form.get("report")
-        if report: return redirect(url_for("commander"))
+        if report:
+            global this_mci
+            this_mci = mci.MCI(dt.datetime.now(), len(mcis) "Bronx, NYC",  "commander", {})
+            mcis.append(this_mci)
+            return redirect(url_for("commander"))
+
+        return redirect(url_for("commander"))
 
 
 @app.route('/commander', methods=['GET', 'POST'])
@@ -73,6 +78,11 @@ def patientadd():
     if request.method == "GET":
         return render_template('patientadd.html')
     elif request.method == "POST":
+        ploc = request.form["ploc"]
+        status = request.form["options"]
+        pcond = request.form["pcond"]
+        pneed = request.form["pneed"]
+        this_mci.addPatient(ploc, status, pcond, pneed)
         return redirect(url_for("triage"))
 
 @app.route('/responder', defaults={'id': None}, methods=['GET', 'POST'])

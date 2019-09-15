@@ -11,7 +11,7 @@
                 </div>
                 <form method="post">
                 <div class="card-body">
-                    <h5 class='card-title'>Patients: x // Responders: y</h5>
+                    <h5 class='card-title'>Patients: 0 // Responders: 0</h5>
                     Select a role:
                     <button type="submit" class="btn btn-primary mb-2" name="ic" value="{{ mci.datetime }}">Incident Commander</button>
                     <button type="submit" class="btn btn-primary mb-2" name="triage" value="{{ mci.datetime }}">Triage</button>
@@ -26,6 +26,6 @@
 
     <form method="post">
         <h3>By reporting an incident, you are declaring yourself Incident Commander.</h3>
-        <button type="submit" name="report" class="btn btn-primary">Report New Incident</button>
+        <button type="submit" name="report" value="report" class="btn btn-primary">Report New Incident</button>
     </form>
 {% endblock %}
