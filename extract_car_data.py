@@ -55,7 +55,7 @@ def get_car_data():
                 
             else:
                 continue
-            # post data in "real time"
+            #r = requests.post(url = API_ENDPOINT, data = post_data)
             while(time.time() - execution_start_time > line_relative_time):
                 # wait until the time the data is supposed to be sent
                 time.sleep(0.0001)
