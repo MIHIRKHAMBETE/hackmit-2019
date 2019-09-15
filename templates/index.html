@@ -1,33 +1,26 @@
 {% extends "layout.html" %}
 {% block content %}
-    <a href='/commander'>Incident Commander</a><br><br>
-
-    <a href='/triage'>Triage</a><br>
-    <a href='/patientadd'>Add Patient</a><br><br>
-
-    <a href='/responder'>First Responder</a><br>
-
-    <table>
-        <tr>
-            <th>Incident ID</th>
-            <th>Location</th>
-            <th>Respondents</th>
-            <th>Patients</th>
-        </tr>
-        <tr>
-            <td>id1</td>
-            <td>loc</td>
-            <td>5</td>
-            <td>5</td>
-        </tr>
-        <tr>
-            <td>id2</td>
-            <td>loc2</td>
-            <td>6</td>
-            <td>8</td>
-        </tr>
-    </table>
-
+    <h2>MCI Listing</h2>
+<br>
+    <div class="card-deck">
+        <div class='card-group'>
+            {% for mci in mcis %}
+            <div class="card ">
+                <div class='card-header'>
+                    {{ mci.datetime }} // {{ mci.location }}
+                </div>
+                <div class="card-body">
+                    <h5 class='card-title'>Patients: x // Responders: y</h5>
+                    Select a role:
+                    <button type="submit" class="btn btn-primary mb-2" name="ic" value="{{ mci.id }}">Incident Commander</button>
+                    <button type="submit" class="btn btn-primary mb-2" name="triage" value="{{ mci.id }}">Triage</button>
+                    <button type="submit" class="btn btn-primary mb-2" name="responders" value="{{ mci.id }}">First Responder</button>
+                    <button type="submit" class="btn btn-primary mb-2" name="dispatch" value="{{ mci.id }}">Dispatch</button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
 
     <form method="post">
         <h3>By reporting an incident, you are declaring yourself Incident Commander.</h3>

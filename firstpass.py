@@ -8,17 +8,19 @@ app = Flask(__name__)
 middle_url = "http://triageapp.appspot.com/data"
 # assume for now there is only one mci to track
 # this_mci = mci.MCI(dt.datetime.now(), "location",  "commander", [mci.Responder('MIT8')])
+mcis = [mci.MCI(dt.datetime.now(), "location",  "commander", {})] # test only
 this_mci = None
+
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == "GET":
-        return render_template('index.html')
+        return render_template('index.html', mcis=mcis)
     elif request.method == "POST":
         # Report Incident button pressed: initialize new mci!
         global this_mci
 
-        this_mci = mci.MCI(dt.datetime.now(), "location",  "commander", {})
+        this_mci = mci.MCI(dt.datetime.now(), "nyc",  "commander", {})
         # for testing purposes, add more responders & patients
         this_mci.addResponders(['MIT8', 'P1', 'Squad2'])
         this_mci.addPatient('left side of lobby', 'R', 'Hemorrhage (tourniquet placed)')
@@ -81,7 +83,8 @@ def responder(id):
             # transport = request.form.get("transport")
             # transfer = request.form.get("transfer")
             # return (refusal, transport, transfer)
-            # if refusal:
+            # if refusal or transfer, clear the assignment from both
+            # if transport, pull up a map??
             pass
         else: #first responder checkin!
             rid = request.form["options"]
