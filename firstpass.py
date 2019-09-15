@@ -118,4 +118,5 @@ def responder(id):
 @app.route('/dispatch',  methods=['GET', 'POST'])
 def dispatch():
     if request.method == "GET":
-        return render_template('dispatch.html')
+        rainy = True
+        return render_template('dispatch.html', rainy=True)

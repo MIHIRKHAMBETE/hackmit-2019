@@ -47,6 +47,7 @@ class MCI:
             pid = random.randint(1000, 9999)
         patient = Patient(pid, location, triage, condition, need)
         self.patientDict[pid] = patient
+        return pid
 
     def assignPatient(self, responderID):
         r = None
