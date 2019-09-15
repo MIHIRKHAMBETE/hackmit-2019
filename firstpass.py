@@ -1,6 +1,9 @@
+import requests
 from flask import Flask, render_template, request
 app = Flask(__name__)
 
+middle_url = "http://triageapp.appspot.com/data"
+pid = "pid"
 
 @app.route('/')
 def index():
@@ -26,4 +29,11 @@ def patientadd():
 
 @app.route('/responder')
 def responder():
-    return render_template('responder.html')
+    if request.method == "GET":
+        params = ['longitude', 'latitude', 'odometer', 'fuel_level']
+        vals = []
+        for param in params:
+            vals.append(requests.get(middle_url, {'param': param}).text)
+        return render_template('responder.html', vals=vals)
+    elif request.method == "POST":
+        return request.form
