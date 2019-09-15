@@ -13,6 +13,11 @@ middle_url = "http://triageapp.appspot.com/data"
 
 mcis = [mci.MCI(0, dt.datetime.now()-timedelta(hours=30),  "Apollo Theater",  "commander", {})] # test only
 mcis[0].addResponders(['MIT8', 'P1', 'Squad2'])
+mcis[0].addPatient('left side of lobby', 'R', 'Hemorrhage (tourniquet placed)')
+mcis[0].addPatient('stairwell to right of lobby', 'Y')
+mcis[0].addPatient('sidewalk next to bldg, leaning on pole', 'G')
+mcis[0].addPatient('red couch by elevator', 'G')
+mcis[0].addPatient('behind lobby staff counter', 'B', 'cardiac arrest')
 # mcis = []
 # this_mci = mci.MCI(dt.datetime.now(), 2, "Apollo Theater",  "Commander", {})
 # this_mci = None
@@ -28,12 +33,12 @@ def index():
         # global this_mci
         # this_mci = mci.MCI(len(mcis), dt.datetime.now(), "Apollo Theather",  "Commander", {})
         # for testing purposes, add more responders & patients
-        this_mci.addResponders(['MIT8', 'P1', 'Squad2'])
-        this_mci.addPatient('left side of lobby', 'R', 'Hemorrhage (tourniquet placed)')
-        this_mci.addPatient('stairwell to right of lobby', 'Y')
-        this_mci.addPatient('sidewalk next to bldg, leaning on pole', 'G')
-        this_mci.addPatient('red couch by elevator', 'G')
-        this_mci.addPatient('behind lobby staff counter', 'B', 'cardiac arrest')
+        # this_mci.addResponders(['MIT8', 'P1', 'Squad2'])
+        # this_mci.addPatient('left side of lobby', 'R', 'Hemorrhage (tourniquet placed)')
+        # this_mci.addPatient('stairwell to right of lobby', 'Y')
+        # this_mci.addPatient('sidewalk next to bldg, leaning on pole', 'G')
+        # this_mci.addPatient('red couch by elevator', 'G')
+        # this_mci.addPatient('behind lobby staff counter', 'B', 'cardiac arrest')
 
         ic = request.form.get("ic")
         # if ic: return redirect(url_for("commander"))
