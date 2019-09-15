@@ -1,8 +1,8 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h3 class='text-center'>Patient-Respondent Assignment</h3>
+    <h3 class='text-center'>Patient Assignments</h3>
     <br>
-    
+
     <div class="card-deck">
         <div class='card-group'>
             <div class="card text-white bg-danger">
@@ -16,7 +16,7 @@
                 </div>
                 <div class='card-footer'>
                     <label>Assignee</label>
-                    <form class='form-row'>
+                    <form class='form-row' method="post">
                         <div class='col-auto'>
                             <select id="passignee" class="form-control mr-sm-2">
                                 <option selected>~Default</option>

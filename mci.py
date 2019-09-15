@@ -9,20 +9,20 @@ class Patient:
         self.status = status
         self.condition = condition
         self.need = need
-        self.respondent = None
+        self.responder = None
         self.cleared = False
-    
+
     def reassign(self, respondent):
-        self.respondent = respondent
+        self.responder = responder
 
     def changeStatus(self, status):
         self.status = status
 
 
-class Dispatcher:
+class Responder:
 
-    def __init__(self, did):
-        self.id = did
+    def __init__(self, id):
+        self.id = id
         self.assignee = None
 
     def reassign(self, patientID):
@@ -31,14 +31,13 @@ class Dispatcher:
 
 class MCI:
 
-    def __init__(self, date, time, location, commander, dispatchers):
-        self.date = date
-        self.time = time
+    def __init__(self, datetime, location, commander, responders):
+        self.datetime = datetime
         self.location = location
         self.commander = commander
         self.patientDict = {}
         self.patientDone = []
-        self.dispatchers = dispatchers
+        self.responders = responders
         self.incidence = True
 
     def addPatient(self, location, triage, condition, need):
@@ -48,7 +47,7 @@ class MCI:
         patient = Patient(pid, location, triage, condition, need)
         self.patientDict[pid] = patient
 
-    def assignPatient(self, dispatcherID):
+    def assignPatient(self, responderID):
         r = None
         y = None
         g = None
@@ -65,14 +64,14 @@ class MCI:
             patientID = y
         else:
             patientID = g
-        self.dispatchers[dispatcherID].reassign(patientID)
-        self.patientDict[patientID].reassign(dispatcherID)
+        self.responders[responderID].reassign(patientID)
+        self.patientDict[patientID].reassign(responderID)
 
-    def changePatientStatus(self, dispatcherID, patientID, status):
+    def changePatientStatus(self, responderID, patientID, status):
         self.patientDict[patientID].changeStatus(status)
         if status == 'Refused' or status == 'Transported':
             self.patientDone.append(self.patientDict[patientID])
             del self.patientDict[patientID]
-            self.assignPatient(dispatcherID)
+            self.assignPatient(responderID)
         if len(self.patientDict) == 0:
             self.incidence = False

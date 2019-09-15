@@ -1,13 +1,23 @@
 import requests
-from flask import Flask, render_template, request
+import datetime as dt
+from flask import Flask, render_template, request, url_for, redirect
+
+import mci
 app = Flask(__name__)
 
 middle_url = "http://triageapp.appspot.com/data"
 pid = "pid"
 
-@app.route('/')
+
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template('index.html')
+    if request.method == "GET":
+        return render_template('index.html')
+    elif request.method == "POST":
+        # Report Incident button pressed: initialize new mci!
+        responders = []
+        this_mci = mci.MCI(dt.datetime.now(), "location",  "commander", responders)
+        return redirect(url_for("commander"))
 
 
 @app.route('/commander')
@@ -15,7 +25,7 @@ def commander():
     return render_template('commander.html')
 
 
-@app.route('/triager')
+@app.route('/triage')
 def triager():
     return render_template('triager.html')
 
@@ -36,4 +46,5 @@ def responder():
             vals.append(requests.get(middle_url, {'param': param}).text)
         return render_template('responder.html', vals=vals)
     elif request.method == "POST":
+        # "patient cleared" button was pressed... do something?
         return request.form
