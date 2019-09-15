@@ -22,7 +22,7 @@ class Patient:
 class Responder:
 
     def __init__(self, id):
-        self.id = id
+        self.id = id # unique call sign
         self.assignee = None
 
     def reassign(self, patientID):
@@ -40,7 +40,7 @@ class MCI:
         self.responders = responders
         self.incidence = True
 
-    def addPatient(self, location, triage, condition, need):
+    def addPatient(self, location, triage, condition='unknown', need='n/a'):
         pid = random.randint(1000, 9999)
         while pid in self.patientDict:
             pid = random.randint(1000, 9999)
@@ -75,3 +75,10 @@ class MCI:
             self.assignPatient(responderID)
         if len(self.patientDict) == 0:
             self.incidence = False
+
+    def addResponder(self, responderID):
+        self.responders.append(Responder(responderID))
+
+    def addResponders(self, responderIDs):
+        for rid in responderIDs:
+            self.addResponder(rid)

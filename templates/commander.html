@@ -5,24 +5,21 @@
 
     <div class="card-deck">
         <div class='card-group'>
-            <div class="card text-white bg-danger">
+            {% for patient in patients %}
+            <div class="card text-white bg-danger" name="{{ patient.id }}">
                 <div class='card-header'>
-                    Patient ID
+                    Patient ID: {{ patient.id }}
                 </div>
                 <div class="card-body">
-                    <h5 class='card-title'>Location</h5>
-                    <p class="card-text">Conditions</p>
-                    <p class="card-text">Specialized Need</p>
-                </div>
-                <div class='card-footer'>
-                    <label>Assignee</label>
+                    <h5 class='card-title'>Location: {{ patient.location }}</h5>
+                    <p class="card-text">Condition: {{ patient.condition }}</p>
+                    <label>Assignee: </label>
                     <form class='form-row' method="post">
                         <div class='col-auto'>
-                            <select id="passignee" class="form-control mr-sm-2">
-                                <option selected>~Default</option>
-                                <option>Respon</option>
-                                <option>Respon</option>
-                                <option>Respon</option>
+                            <select id="passignee" name="passignee" class="form-control mr-sm-2">
+                                {% for responder in responders %}
+                                <option value="{{ responder.id }}">{{ responder.id }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                         <div class='col-auto'>
@@ -31,29 +28,7 @@
                     </form>
                 </div>
             </div>
-            <div class="card text-white bg-danger">
-                <div class='card-header'>
-                    Patient ID
-                </div>
-                <div class="card-body">
-                    <h5 class='card-title'>Location</h5>
-                    <p class="card-text">Conditions</p>
-                    <label>Assignee</label>
-                    <form class='form-row'>
-                        <div class='col-auto'>
-                            <select id="passignee" class="form-control mr-sm-2">
-                                <option selected>~Default</option>
-                                <option>Respon</option>
-                                <option>Respon</option>
-                                <option>Respon</option>
-                            </select>
-                        </div>
-                        <div class='col-auto'>
-                            <button type="submit" class="btn btn-primary mb-2">Assign</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+            {% endfor %}
         </div>
         <div class='card-group'>
             <div class="card bg-warning">
@@ -65,26 +40,8 @@
                     <p class="card-text">Conditions</p>
                 </div>
             </div>
-            <div class="card bg-warning">
-                <div class='card-header'>
-                    Patient ID
-                </div>
-                <div class="card-body">
-                    <h5 class='card-title'>Location</h5>
-                    <p class="card-text">Conditions</p>
-                </div>
-            </div>
         </div>
         <div class='card-group'>
-            <div class="card text-white bg-success">
-                <div class='card-header'>
-                    Patient ID
-                </div>
-                <div class="card-body">
-                    <h5 class='card-title'>Location</h5>
-                    <p class="card-text">Conditions</p>
-                </div>
-            </div>
             <div class="card text-white bg-success">
                 <div class='card-header'>
                     Patient ID
