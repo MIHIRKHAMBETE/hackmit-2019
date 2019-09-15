@@ -23,6 +23,9 @@ def index():
         this_mci.addResponders(['MIT8', 'P1', 'Squad2'])
         this_mci.addPatient('left side of lobby', 'R', 'Hemorrhage (tourniquet placed)')
         this_mci.addPatient('stairwell to right of lobby', 'Y')
+        this_mci.addPatient('sidewalk next to bldg, leaning on pole', 'G')
+        this_mci.addPatient('red couch by elevator', 'G')
+        this_mci.addPatient('behind lobby staff counter', 'B', 'cardiac arrest')
         return redirect(url_for("commander"))
 
 
