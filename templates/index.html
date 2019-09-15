@@ -9,6 +9,7 @@
                 <div class='card-header'>
                     {{ mci.datetime.strftime('%Y-%m-%d %H:%M') }} // {{ mci.location }}
                 </div>
+                <form method="post">
                 <div class="card-body">
                     <h5 class='card-title'>Patients: x</h5>
                     <h5 class='card-title'> Responders: y</h5>
@@ -19,6 +20,7 @@
                     <button type="submit" class="btn btn-primary mb-2" name="responders" value="{{ mci.id }}">First Responder</button>
                     <button type="submit" class="btn btn-primary mb-2" name="dispatch" value="{{ mci.id }}">Dispatch</button>
                 </div>
+                </form>
             </div>
             {% endfor %}
         </div>

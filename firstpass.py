@@ -30,7 +30,19 @@ def index():
         this_mci.addPatient('behind lobby staff counter', 'B', 'cardiac arrest')
         # for pt in this_mci.patientDict.keys():
         #     this_mci.patientDict[pt].reassign('P1')
-        return redirect(url_for("commander"))
+        # return redirect(url_for("commander"))
+
+        ic = request.form.get("ic")
+        if ic: return redirect(url_for("commander"))
+        triage = request.form.get("triage")
+        if triage: return redirect(url_for("triage"))
+        responder = request.form.get("responder")
+        if responder: return redirect(url_for("responder"))
+        dispatch = request.form.get("dispatch")
+        if dispatch: return redirect(url_for("dispatch"))
+
+        report = request.form.get("report")
+        if report: return redirect(url_for("commander"))
 
 
 @app.route('/commander', methods=['GET', 'POST'])
@@ -89,3 +101,8 @@ def responder(id):
         else: #first responder checkin!
             rid = request.form["options"]
             return redirect(url_for("responder")+"/"+rid)
+
+@app.route('/dispatch',  methods=['GET', 'POST'])
+def dispatch():
+    if request.method == "GET":
+        return render_template('dispatch.html')
