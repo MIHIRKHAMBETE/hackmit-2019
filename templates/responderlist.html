@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h3 class='text-center'>First Responder Pages</h3>
+    <br>
+      <div class='btn-group'>
+        <form class='form-col' method="post">
+          {% for responder in responders %}
+          <button type="submit" class="btn btn-primary mb-2" name="options" value="{{ responder.id }}">{{ responder.id }}</button>
+          {% endfor %}
+
+        </form>
+      </div>
+
+{% endblock %}

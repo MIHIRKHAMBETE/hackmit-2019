@@ -39,7 +39,9 @@ def commander():
         pt, responder = result.split('~') #assumeing no responder id's will have ~ in their call sign
         this_mci.patientDict[int(pt)].reassign(responder)
         this_mci.responders[responder].reassign(pt)
-
+        # maybe sort the patient list before passing!
+        # unassigned on top
+        # red -> yellow -> green -> black
     return render_template('commander.html', responders=this_mci.responders.values(), patients=this_mci.patientDict.values())
 
 @app.route('/triage', methods=['GET', 'POST'])
@@ -59,14 +61,28 @@ def patientadd():
     elif request.method == "POST":
         return redirect(url_for("triage"))
 
-@app.route('/responder', methods=['GET', 'POST'])
-def responder():
+@app.route('/responder', defaults={'id': None}, methods=['GET', 'POST'])
+@app.route('/responder/<id>',  methods=['GET', 'POST'])
+def responder(id):
     if request.method == "GET":
-        params = ['longitude', 'latitude', 'odometer', 'fuel_level']
-        vals = []
-        for param in params:
-            vals.append(requests.get(middle_url, {'param': param}).text)
-        return render_template('responder.html', vals=vals)
+        if id:
+            patient=this_mci.patientDict[int(this_mci.responders[id].assignee)]
+            params = ['longitude', 'latitude', 'odometer', 'fuel_level']
+            vals = []
+            for param in params:
+                vals.append(requests.get(middle_url, {'param': param}).text)
+            return render_template('responder.html', responder=id, patient=patient, vals=vals)
+        else: # id = None; go to list of responders w/ general info!
+        #maybe populate w/ general info..
+            return render_template('responderlist.html', responders=this_mci.responders.values())
     elif request.method == "POST":
-        # "patient cleared" button was pressed... do something?
-        return request.form
+        if id: # "patient cleared" button was pressed... do something?
+            # refusal = request.form.get("refusal")
+            # transport = request.form.get("transport")
+            # transfer = request.form.get("transfer")
+            # return (refusal, transport, transfer)
+            # if refusal:
+            pass
+        else: #first responder checkin!
+            rid = request.form["options"]
+            return redirect(url_for("responder")+"/"+rid)

@@ -1,21 +1,36 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h1>{{ pid }}</h1>
-    <h2>{{ pstatus }}</h2>
-    <h3>{{ ploc }}</h3>
-
-    <p>{{ pcond }}</p>
+<h3 class='text-center'>Patient Assignment: {{ responder }}</h3>
+<br>
+    <div class="card-deck">
+        <div class='card-group'>
+            <div class="card {{'text-white bg-danger' if patient.status=='R'}} {{'bg-warning' if patient.status=='Y'}} {{'bg-success' if patient.status=='G'}} {{'text-white bg-dark' if patient.status=='B'}}">
+                <div class='card-header'>
+                    Patient ID: {{ patient.id }}
+                </div>
+                <div class="card-body">
+                    <h1 class='card-title'>Location: {{ patient.location }}</h1>
+                    <h3 class="card-text">Condition: {{ patient.condition }}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <form class='form-inline' method="post">
         <!-- <div class="form-group form-check">
             <input type="checkbox" class="form-check-input" id="pcleared">
             <label class="form-check-label">Patient Cleared</label>
         </div> -->
-        <button type="submit" class='btn btn-primary'>Patient Cleared</button>
+        <div class="btn-row">
+          <button type="submit" class='btn btn-primary btn-block' name="refusal" value="{{ responder.id }}">Patient Refusal Processed </button>
+          <button type="submit" class='btn btn-primary btn-block' name="transport" value="{{ responder.id }}">Initiating Patient Transport</button>
+          <button type="submit" class='btn btn-primary btn-block' name="transfer" value="{{ responder.id }}">Patient Transferred to Other Care</button>
+        </div>
     </form>
-
-    <h3>Longitude: {{ vals[0] }}</h3>
-    <h3>Latitude: {{ vals[1] }}</h3>
-    <h3>Odometer: {{ vals[2] }}</h3>
-    <h3>Fuel Level: {{ vals[3] }}</h3>
+    <br>
+<h3 class='text-center'>Ambulance Information: {{ responder }}</h3>
+    <h5>Longitude: {{ vals[0] }}</h5>
+    <h5>Latitude: {{ vals[1] }}</h5>
+    <h5>Odometer: {{ vals[2] }}</h5>
+    <h5>Fuel Level: {{ vals[3] }}</h5>
 {% endblock %}
