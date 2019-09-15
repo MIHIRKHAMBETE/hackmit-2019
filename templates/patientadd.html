@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h1>{{ pid }}</h1>
+    <h3>{{ pid }}</h3>
     <br>
 
     <form method="post">
@@ -25,13 +25,13 @@
         </div>
         <div class="form-group">
             <label>Patient Condition</label>
-            <textarea class="form-control" id="pcond" rows="1" name="pcond"></textarea>
+            <textarea class="form-control" id="pcond" rows="3" name="pcond"></textarea>
         </div>
         <div class="form-group">
             <label>Specialized Resources Required</label>
             <input type='text' class="form-control" id="pneed" name="pneed"></input>
         </div>
         <br>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <center><button type="submit" class="btn btn-primary">Submit</button></center>
     </form>
 {% endblock %}

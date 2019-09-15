@@ -1,32 +1,47 @@
 {% extends "layout.html" %}
 {% block content %}
-<h3 class='text-center'>Patient Assignment: {{ responder }}</h3>
+
+<h3 class='text-center'><b>{{ responder }}</b> Information</h3>
 <br>
-    <div class="card-deck">
-        <div class='card-group'>
-            <div class="card {{'text-white bg-danger' if patient.status=='R'}} {{'bg-warning' if patient.status=='Y'}} {{'bg-success' if patient.status=='G'}} {{'text-white bg-dark' if patient.status=='B'}}">
-                <div class='card-header'>
-                    <b></b>Patient ID: {{ patient.id }}
-                </div>
-                <div class="card-body">
-                    <h5 class='card-title'>Location: {{ patient.location }}</h5>
-                    <p class="card-text">Condition: {{ patient.condition }}</p>
-                </div>
+<p>
+    Location: {{ vals[1] }}, {{ vals[0] }}<br>
+    <img src='/static/resp2.JPG' width="330px"><br>
+    Fuel Level: {{ vals[3] }}<br>
+    Odometer: {{ vals[2] }}
+    {% if not rainy %}
+    <div class="alert alert-primary" role="alert">
+        Inclemental weather, fuel level must be at least 2/3!
+    </div>
+    {% endif %}
+</p>
+
+<hr>
+
+<h3 class='text-center'><b>{{ responder }}</b> Patient Assignment</h3>
+<br>
+<div class="card-deck">
+    <div class='card-group'>
+        <div class="card {{'text-white bg-danger' if patient.status=='R'}} {{'bg-warning' if patient.status=='Y'}} {{'bg-success' if patient.status=='G'}} {{'text-white bg-dark' if patient.status=='B'}}">
+            <div class='card-header'>
+                <b>Patient ID</b>: {{ patient.id }}
+            </div>
+            <div class="card-body">
+                <h5 class='card-title'><b>Location</b>: {{ patient.location }}</h5>
+                <p class="card-text"><b>Condition</b>: {{ patient.condition }}</p>
+            </div>
+            <div class='card-footer text-center'>
+                <form class='form-inline' method="post">
+                    <div class="btn-group">
+                        <button type="submit" class='btn btn-primary' name="refusal" 
+                            value="{{ responder.id }}">Refused</button>
+                        <button type="submit" class='btn btn-primary' name="transport"
+                            value="{{ responder.id }}">Transport</button>
+                        <button type="submit" class='btn btn-primary' name="transfer"
+                            value="{{ responder.id }}">Transfer</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-
-    <form class='form-inline' method="post">
-        <div class="btn-group" role="group">
-          <button type="submit" class='btn btn-primary btn-block' name="refusal" value="{{ responder.id }}">Refusal </button>
-          <button type="submit" class='btn btn-primary btn-block' name="transport" value="{{ responder.id }}">Transport</button>
-          <button type="submit" class='btn btn-primary btn-block' name="transfer" value="{{ responder.id }}">Transferred</button>
-        </div>
-    </form>
-    <br>
-<h3 class='text-center'>Ambulance Information: {{ responder }}</h3>
-    <h5>Longitude: {{ vals[0] }}</h5>
-    <h5>Latitude: {{ vals[1] }}</h5>
-    <h5>Odometer: {{ vals[2] }}</h5>
-    <h5>Fuel Level: {{ vals[3] }}</h5>
+</div>
 {% endblock %}

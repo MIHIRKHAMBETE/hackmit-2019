@@ -2,25 +2,25 @@
 {% block content %}
 <h3 class='text-center'>Dispatch</h3>
 <br>
-    <div class="card-deck">
-        <div class='card-group'>
-            <div class="card ">
-                <div class='card-header'>
-                    # Patients, # Responders
-                </div>
+<div class="card-deck">
+    <div class='card-group'>
+        <div class="card ">
+            <div class='card-header'>
+                <b>Apollo Theater</b> 
+            </div>
+            <div class='card-body'>
+                <h5 class='card-title'><b>Patients</b>: 6</h5>
+                <p class="card-text"><b>Responders</b>: 3</p>
+                <img src="/static/resp.JPG" width="290px">
+            </div>
+            <div class='card-footer'>
+                <b>Weather Information:</b>
+                <p>
+                    Temperature: 78F<br>
+                    Inclement weather: Yes
+                </p>
             </div>
         </div>
     </div>
-
-    <form class='form-inline' method="post">
-        <!-- <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id="pcleared">
-            <label class="form-check-label">Patient Cleared</label>
-        </div> -->
-
-    </form>
-    <br>
-<h3 class='text-center'>Weather Information:</h3>
-    <h5>Temperature: ~temp~</h5>
-    <h5>Inclement weather: yes/no</h5>
+</div>
 {% endblock %}

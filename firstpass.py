@@ -4,6 +4,7 @@ from datetime import timedelta
 from flask import Flask, render_template, request, url_for, redirect
 
 import mci
+import ibm_get_test
 app = Flask(__name__)
 
 middle_url = "http://triageapp.appspot.com/data"
@@ -27,12 +28,12 @@ def index():
         # global this_mci
         # this_mci = mci.MCI(len(mcis), dt.datetime.now(), "Apollo Theather",  "Commander", {})
         # for testing purposes, add more responders & patients
-        # this_mci.addResponders(['MIT8', 'P1', 'Squad2'])
-        # this_mci.addPatient('left side of lobby', 'R', 'Hemorrhage (tourniquet placed)')
-        # this_mci.addPatient('stairwell to right of lobby', 'Y')
-        # this_mci.addPatient('sidewalk next to bldg, leaning on pole', 'G')
-        # this_mci.addPatient('red couch by elevator', 'G')
-        # this_mci.addPatient('behind lobby staff counter', 'B', 'cardiac arrest')
+        this_mci.addResponders(['MIT8', 'P1', 'Squad2'])
+        this_mci.addPatient('left side of lobby', 'R', 'Hemorrhage (tourniquet placed)')
+        this_mci.addPatient('stairwell to right of lobby', 'Y')
+        this_mci.addPatient('sidewalk next to bldg, leaning on pole', 'G')
+        this_mci.addPatient('red couch by elevator', 'G')
+        this_mci.addPatient('behind lobby staff counter', 'B', 'cardiac arrest')
 
         ic = request.form.get("ic")
         # if ic: return redirect(url_for("commander"))
@@ -103,7 +104,8 @@ def responder(mcid, id):
             vals = []
             for param in params:
                 vals.append(requests.get(middle_url, {'param': param}).text)
-            return render_template('responder.html', responder=id, patient=patient, vals=vals)
+            rainy = ibm_get_test.get_ibm_weather_at(vals[1], vals[0])['observation']['precip_hrly'] > 0
+            return render_template('responder.html', responder=id, patient=patient, vals=vals, rainy=rainy)
         else: # id = None; go to list of responders w/ general info!
         #maybe populate w/ general info..
             return render_template('responderlist.html', responders=mcis[int(mcid)].responders.values())
@@ -125,4 +127,5 @@ def responder(mcid, id):
 @app.route('/dispatch/<mcid>',  methods=['GET', 'POST'])
 def dispatch(mcid):
     if request.method == "GET":
-        return render_template('dispatch.html')
+        rainy = True
+        return render_template('dispatch.html', rainy=True)

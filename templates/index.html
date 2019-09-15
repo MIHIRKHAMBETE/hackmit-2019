@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h2>MCI Listing</h2>
+<h3 class='text-center'>MCI Listing</h3>
 <br>
     <div class="card-deck">
         <div class='card-group'>
@@ -11,8 +11,8 @@
                 </div>
                 <form method="post">
                 <div class="card-body">
-                    <h5 class='card-title'>Patients: 0</h5>
-                    <h5 class='card-title'> Responders: 1</h5>
+                    <h5 class='card-title'><b>Patients</b>: 6</h5>
+                    <h5 class='card-title'><b>Responders</b>: 3</h5>
 
                     <label>Select a role</label><br>
                     <button type="submit" class="btn btn-primary mb-2" name="ic" value="{{ mci.id }}">Incident Commander</button>

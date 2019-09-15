@@ -47,6 +47,7 @@ class MCI:
             pid = random.randint(1000, 9999)
         patient = Patient(pid, location, triage, condition, need)
         self.patientDict[pid] = patient
+        return pid
 
     def assignPatient(self, responderID):
         r = None
@@ -83,3 +84,9 @@ class MCI:
     def addResponders(self, responderIDs):
         for rid in responderIDs:
             self.addResponder(rid)
+
+    def getNumPatients(self):
+        return len(self.patientDict)
+
+    def getNumResponder(self):
+        return len(self.responders)
