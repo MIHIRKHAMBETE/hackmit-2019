@@ -17,33 +17,33 @@
     <h1>{{ pid }}</h1>
     <br>
 
-    <form>
+    <form method="post">
         <div class="form-group">
             <label>Patient Location</label>
-            <input type='text' class="form-control" id="ploc"></input>
+            <input type='text' class="form-control" id="ploc" name="ploc"></input>
         </div>
         <label>Triage</label><br>
         <div class="btn-group" data-toggle="buttons">
             <label class="btn btn-success">
-                <input type="radio" name="options" id="G"> Green
+                <input type="radio" name="options" value="G" id="G"> Green
             </label>
             <label class="btn btn-warning">
-                <input type="radio" name="options" id="Y"> Yellow
+                <input type="radio" name="options" value="Y" id="Y"> Yellow
             </label>
             <label class="btn btn-danger">
-                <input type="radio" name="options" id="R"> Red
+                <input type="radio" name="options" value="R" id="R"> Red
             </label>
             <label class="btn btn-dark">
-                <input type="radio" name="options" id="B"> Black
+                <input type="radio" name="options" value="B" id="B"> Black
             </label>
         </div>
         <div class="form-group">
             <label>Patient Conditions</label>
-            <textarea class="form-control" id="pcond" rows="3"></textarea>
+            <textarea class="form-control" id="pcond" rows="3" name="pcond"></textarea>
         </div>
         <div class="form-group">
             <label>Specialized Need</label>
-            <input type='text' class="form-control" id="pneed"></input>
+            <input type='text' class="form-control" id="pneed" name="pneed"></input>
         </div>
         <br><br>
         <button type="submit" class="btn btn-primary">Submit</button>

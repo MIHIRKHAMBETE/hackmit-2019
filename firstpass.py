@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 app = Flask(__name__)
 
 
@@ -17,16 +17,13 @@ def triager():
     return render_template('triager.html')
 
 
-@app.route('/patientadd')
+@app.route('/patientadd', methods=['GET', 'POST'])
 def patientadd():
-    pid = 5551
-    return render_template('patientadd.html')
-
+    if request.method == "GET":
+        return render_template('patientadd.html')
+    elif request.method == "POST":
+        return request.form
 
 @app.route('/responder')
 def responder():
-    pid = 6123
-    loc = 'corner'
-    pstatus = 'R'
-    pcond = None
-    return render_template('responder.html', pid=pid, loc=loc, pstatus=pstatus, pcond=pcond)
+    return render_template('responder.html')
