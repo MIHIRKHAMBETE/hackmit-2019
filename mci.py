@@ -35,23 +35,25 @@ class MCI:
         self.location = location
         self.commander = commander
         self.patientDict = {}
+        self.patientDone = []
         self.dispatchers = dispatchers
-
         self.incidence = True
-        self.patients = 0
-        self.patientsSeen = 0
+
+    def assignPatient(self, dispatcherID, patientID):
+        self.dispatchers[dispatcherID].reassign(patientID)
+        self.patientDict[patientID].reassign(dispatcherID)
     
     def addPatient(self, location, triage, condition, need):
-        self.patients += 1
         pid = random.randint(1000, 9999)
         while pid in self.patientDict:
             pid = random.randint(1000, 9999)
         patient = Patient(location, triage, condition, need)
         self.patientDict[pid] = patient
 
-    def changePatientStatus(self, patientID, status):
+    def changePatientStatus(self, dispatcherID, patientID, status):
         self.patientDict[patientID].changeStatus(status)
         if status == 'Refused' or status == 'Transported':
-            self.patientsSeen += 1
-        if self.patientsSeen == self.patients:
+            self.patientDone.append(self.patientDict[patientID])
+            del self.patientDict[patientID]
+        if len(self.patientDict) == 0:
             self.incidence = False
